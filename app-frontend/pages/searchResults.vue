@@ -80,6 +80,18 @@ export default {
         return '1'
       }
     }
+  },
+  methods: {
+    goToPrevPage() {
+      this.$router.push({
+        query: { page: this.prevPageNumber, q: this.$route.query.q }
+      })
+    },
+    goToNextPage() {
+      this.$router.push({
+        query: { page: this.nextPageNumber, q: this.$route.query.q }
+      })
+    }
   }
 }
 </script>
