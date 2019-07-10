@@ -47,4 +47,15 @@ export const actions = {
     commit('UPDATE_GARMENTS', response.results)
     commit('UPDATE_GARMENT_DISPLAY_PROPERTIES', response)
   },
+  async searchPaginatedGarment({ commit }, payload) {
+    let response = await axios.get('search/', {
+      params: {
+        page: payload.page,
+        q: payload.q
+      }
+    })
+    response = response.data
+    commit('UPDATE_GARMENTS', response.results)
+    commit('UPDATE_GARMENT_DISPLAY_PROPERTIES', response)
+  },
 }
