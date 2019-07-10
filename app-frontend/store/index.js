@@ -18,3 +18,23 @@ export const mutations = {
     state.garments = payload
   },
 }
+export const actions = {
+  async fetchAllGarments({ commit }, pageParam = null) {
+    let response
+    if (pageParam === null) {
+      // perform HTTP get without info for pagination (in case there's not that much data for Django backend to paginate or we want just the first page)
+      response = await axios.get('garments/')
+    } else {
+      // else, if the page number is specified, ask our API for data for that page.
+      response = await axios.get('garments/', {
+        params: {
+          page: pageParam
+        }
+      })
+    }
+    response = response.data
+    commit('UPDATE_GARMENTS', response.results)
+    commit('UPDATE_GARMENT_DISPLAY_PROPERTIES', response)
+    return response
+  },
+}
