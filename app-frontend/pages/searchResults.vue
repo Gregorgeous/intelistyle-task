@@ -81,7 +81,22 @@ export default {
       }
     }
   },
+  watch: {
+    $route() {
+      if (!this.$route.query || !this.$route.query.q) {
+        return this.$router.push('/')
+      }
+      this.getNextFoundGarments()
+    }
+  },
   methods: {
+    getNextFoundGarments() {
+      let payload = {
+        page: this.$route.query.page ? this.$route.query.page : '1',
+        q: this.$route.query.q
+      }
+      return this.$store.dispatch('searchPaginatedGarment', payload)
+    },
     goToPrevPage() {
       this.$router.push({
         query: { page: this.prevPageNumber, q: this.$route.query.q }
