@@ -9,3 +9,12 @@ class GarmentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
+class searchListView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = GarmentSerializer
+    def get_queryset(self):
+        queryset = Garment.objects.all()
+        search_query = self.request.query_params.get('q', None)
+        if search_query is not None:
+            queryset = queryset.search(query=search_query)
+        return queryset
+
