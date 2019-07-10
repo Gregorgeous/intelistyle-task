@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import dj_database_url  #(Heroku deployment)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware', # (Heroku deployment)
     'corsheaders.middleware.CorsMiddleware', # custom
     'django.middleware.security.SecurityMiddleware', # built-in
     'django.contrib.sessions.middleware.SessionMiddleware', # built-in
@@ -55,7 +57,8 @@ MIDDLEWARE = [
 
 # CORS for the Vue.js front-end
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
+    'http://localhost:3000', # development
+    'https://secret-brook-72301.herokuapp.com' # production
 )
 
 REST_FRAMEWORK = {
@@ -131,8 +134,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__)) #(heroku deployment)
+STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles') #(heroku deployment)
 STATIC_URL = '/static/'
+
+# Extra lookup directories for collectstatic to find static files (heroku deployment)
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
+# Add configuration for static files storage using whitenoise  (heroku deployment)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Handling media
 MEDIA_URL = '/media/' # custom 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # custom 
+
+prod_db  =  dj_database_url.config(conn_max_age=500) #(heroku deployment)
+DATABASES['default'].update(prod_db) #(heroku deployment)
+
+ALLOWED_HOSTS = ['intelistyle-task-api.herokuapp.com'] #(heroku deployment)
