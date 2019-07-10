@@ -41,22 +41,30 @@ export default {
     '@nuxtjs/pwa'
   ],
   /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {},
-  /*
    ** Build configuration
    */
+  buildDir: 'nuxt',
   build: {
     postcss: {
       plugins: {
         tailwindcss: './tailwind.config.js'
       }
     },
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
+    // publicPath: '/assets/',
+    extractCSS: true,
+    babel: {
+      presets: ({ isServer }) => [
+        [
+          '@nuxt/babel-preset-app',
+          {
+            targets: isServer ? { node: '8.11.1' } : { browsers: ['defaults'] }
+          }
+        ]
+      ]
+    },
+    extend(config, ctx) {
+      if (ctx.isDev && ctx.isClient) {
+      }
+    }
   }
 }
