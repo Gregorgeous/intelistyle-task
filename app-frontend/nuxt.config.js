@@ -29,7 +29,8 @@ export default {
    */
   // CUSTOM: I create an env variable so that I can make a baseURL for my axios calls, see more: https://nuxtjs.org/api/configuration-env/
   env: {
-    apiBaseUrl: process.env.BASE_URL || 'http://localhost:8000/api/'
+    apiBaseUrl:
+      process.env.BASE_URL || 'https://intelistyle-task-api.herokuapp.com/api/'
   },
   plugins: [],
   /*
