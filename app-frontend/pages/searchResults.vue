@@ -10,6 +10,19 @@
 					:key="index"></garmentCard>
 			</template>
 		</div>
+		<div class="pagination-btns-group inline-flex"
+			v-if="hasNextPage || hasPrevPage">
+			<button @click="goToPrevPage"
+				v-if="hasPrevPage"
+				class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+				Previous results
+			</button>
+			<button @click="goToNextPage"
+				v-if="hasNextPage"
+				class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+				More found
+			</button>
+		</div>
 	</div>
 </template>
 
