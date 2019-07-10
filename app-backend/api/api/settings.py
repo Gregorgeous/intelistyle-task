@@ -37,9 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions', # built-in
     'django.contrib.messages', # built-in
     'django.contrib.staticfiles', # built-in
+    'rest_framework', # custom
+    'corsheaders', # custom
+    'core' # custom 
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # custom
     'django.middleware.security.SecurityMiddleware', # built-in
     'django.contrib.sessions.middleware.SessionMiddleware', # built-in
     'django.middleware.common.CommonMiddleware', # built-in
@@ -49,6 +53,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware', # built-in
 ]
 
+# CORS for the Vue.js front-end
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+)
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 4
+}
 
 ROOT_URLCONF = 'api.urls'
 
@@ -119,3 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Handling media
+MEDIA_URL = '/media/' # custom 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # custom 
