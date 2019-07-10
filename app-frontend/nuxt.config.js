@@ -27,6 +27,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
+  // CUSTOM: I create an env variable so that I can make a baseURL for my axios calls, see more: https://nuxtjs.org/api/configuration-env/
+  env: {
+    apiBaseUrl: process.env.BASE_URL || 'http://localhost:8000/api/'
+  },
   plugins: [],
   /*
    ** Nuxt.js modules
