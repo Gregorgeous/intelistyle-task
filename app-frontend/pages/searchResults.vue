@@ -36,6 +36,49 @@ export default {
     },
     garmentsDisplayProperties() {
       return this.$store.state.garmentDisplayProperties
+    },
+    // ---- computed properties for helper display logic ----
+    hasNextPage() {
+      if (
+        this.garmentsDisplayProperties.next != null &&
+        this.garmentsDisplayProperties.next != undefined
+      ) {
+        return true
+      } else {
+        return false
+      }
+    },
+    hasPrevPage() {
+      if (
+        this.garmentsDisplayProperties.previous != null &&
+        this.garmentsDisplayProperties.previous != undefined
+      ) {
+        return true
+      } else {
+        return false
+      }
+    },
+    prevPageNumber() {
+      if (this.garmentsDisplayProperties.previous) {
+        var url = this.garmentsDisplayProperties.previous
+        let query
+        try {
+          query = /page=([^&]+)/.exec(url)[1]
+        } finally {
+          return query ? query : '1'
+        }
+      } else {
+        return '1'
+      }
+    },
+    nextPageNumber() {
+      if (this.garmentsDisplayProperties.next) {
+        var url = this.garmentsDisplayProperties.next
+        var captured = /page=([^&]+)/.exec(url)[1]
+        return captured ? captured : '1'
+      } else {
+        return '1'
+      }
     }
   }
 }
