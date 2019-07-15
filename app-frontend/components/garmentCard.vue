@@ -13,7 +13,16 @@
 
 <script>
 export default {
-  props: ['garmentObject']
+  props: ['garmentObject'],
+  computed: {
+    centeredTitle: function() {
+      if (this.garmentObject.product_title.length > 30) {
+        return 'centered'
+      } else {
+        return
+      }
+    }
+  }
 }
 </script>
 
@@ -37,10 +46,15 @@ export default {
     background: #2d3748;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    height: 33px;
     padding-left: 1em;
     padding-right: 0.5em;
+    padding-bottom: 0.3em;
+    padding-top: 0.3em;
     width: max-content;
+    max-width: 100%;
+    word-wrap: break-word;
+    height: auto;
+    text-align: center;
     display: -webkit-box;
     display: flex;
     -webkit-box-align: center;
