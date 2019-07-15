@@ -5,8 +5,10 @@ class GarmentQuerySet(models.QuerySet):
     def search(self, query):
         print("working")
         lookup = (
-                    Q(name__icontains=query) |
-                    Q(description__icontains=query) 
+            Q(product_title__icontains=query) |
+            Q(product_categories__icontains=query) |
+            Q(gender__icontains=query) |
+            Q(brand__icontains=query)
                     )
         return self.filter(lookup)
 
