@@ -20,11 +20,27 @@ class GarmentManager(models.Manager):
         return self.get_queryset().published().search(query)
 
 
+class Image(models.Model):
+    url = models.URLField(blank=True, primary_key=True)
+    path = models.CharField(max_length=300)
+    checksum = models.CharField(max_length=35)
+
 class Garment(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.CharField(max_length=400)
-    picture = models.ImageField()
-    
+    product_categories_mapped = models.IntegerField()
+    product_id = models.CharField(primary_key=True, max_length=13)
+    url = models.URLField()
+    gender = models.CharField(max_length=40)
+    brand = models.CharField(max_length=40)
+    product_description = models.TextField(blank=True)
+    image_urls = models.URLField(blank=True)
+    product_imgs_src = models.URLField(blank=True)
+    source = models.URLField(blank=True)
+    product_categories = models.CharField(max_length=40)
+    price = models.DecimalField(decimal_places=2, max_digits=8)
+    product_title = models.CharField(max_length=125)
+    images = models.OneToOneField(Image,
+                                  on_delete=models.CASCADE, null=True)
     objects = GarmentManager()
     def __str_(self):
-        return f"Garment: {self.name}"
+        return f"Garment: {self.product_title}"
+
