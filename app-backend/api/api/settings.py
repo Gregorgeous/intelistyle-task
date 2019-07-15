@@ -26,9 +26,6 @@ SECRET_KEY = '@+8ht+!4lwz*ph^317tr1ykvahmxx07r&l###5fukqtwoh@+ib'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -153,4 +150,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # custom
 prod_db  =  dj_database_url.config(conn_max_age=500) #(heroku deployment)
 DATABASES['default'].update(prod_db) #(heroku deployment)
 
-ALLOWED_HOSTS = ['intelistyle-task-api.herokuapp.com'] #(heroku deployment)
+ALLOWED_HOSTS = ['intelistyle-task-api.herokuapp.com', 'localhost']  #(heroku deployment)
