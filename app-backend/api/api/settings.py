@@ -152,4 +152,15 @@ prod_db  =  dj_database_url.config(conn_max_age=500) #(heroku deployment)
 DATABASES['default'].update(prod_db) #(heroku deployment)
 
 ALLOWED_HOSTS = ['intelistyle-task-api.herokuapp.com', 'localhost']  #(heroku deployment)
+
+AWS_ACCESS_KEY_ID = os.environ.get('INTELISTYLE_TASK_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('INTELISTYLE_TASK_AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'intelistyle-task'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
 AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+DEFAULT_FILE_STORAGE = 'api.storage_backends.PublicMediaStorage'
