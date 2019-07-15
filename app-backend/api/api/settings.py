@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', # built-in
     'rest_framework', # custom
     'corsheaders', # custom
-    'core' # custom 
+    'core', # custom  
+    'storages' # (For AWS S3)
 ]
 
 MIDDLEWARE = [
