@@ -59,6 +59,10 @@ export default {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
+
+    &.centered {
+      padding: 0.3em 0.5em;
+    }
   }
 
   &:hover &__description {
