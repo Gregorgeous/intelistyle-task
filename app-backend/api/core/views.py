@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 class GarmentViewSet(viewsets.ModelViewSet):
     serializer_class = GarmentSerializer
-    queryset = Garment.objects.all().order_by('id')
+    queryset = Garment.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
