@@ -100,6 +100,11 @@ export default {
         return this.$router.push('/')
       }
       this.getNextFoundGarments()
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
     }
   },
   methods: {
