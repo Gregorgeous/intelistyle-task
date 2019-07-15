@@ -1,11 +1,12 @@
 <template>
 	<div class="garment-card max-w-sm rounded overflow-hidden shadow-lg hover:shadow-xl hover:border-4 ">
 		<img class="w-full garment-card__image"
-			:src="garmentObject.picture"
+			:src="garmentObject.image_urls"
 			alt="Women in a black coat">
-		<div class="garment-card__name font-bold text-white text-base md:text-xl mb-2 opacity-75">{{garmentObject.name}}</div>
+		<div :class="centeredTitle"
+			class="garment-card__name font-bold text-white text-base md:text-xl mb-2 opacity-75">{{garmentObject.product_title}}</div>
 		<div class="garment-card__description text-gray-200 text-base opacity-75">
-			{{garmentObject.description}}
+			Brand: {{garmentObject.brand}}
 		</div>
 	</div>
 </template>
