@@ -8,8 +8,6 @@ class GarmentQuerySet(models.QuerySet):
                     Q(name__icontains=query) |
                     Q(description__icontains=query) 
                     )
-        print("LOOKUP:")
-        print(lookup)
         return self.filter(lookup)
 
 class GarmentManager(models.Manager):
