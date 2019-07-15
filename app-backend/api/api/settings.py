@@ -151,3 +151,4 @@ prod_db  =  dj_database_url.config(conn_max_age=500) #(heroku deployment)
 DATABASES['default'].update(prod_db) #(heroku deployment)
 
 ALLOWED_HOSTS = ['intelistyle-task-api.herokuapp.com', 'localhost']  #(heroku deployment)
+AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
