@@ -94,7 +94,6 @@ export default {
   },
   watch: {
     $route() {
-      console.log('HA!')
       this.getNewGarments()
     }
   },
