@@ -24,6 +24,7 @@ URL to the backend API/Microservice the app uses: https://intelistyle-task-api.h
 -------
 # How to set up locally: 
 ## Back-end 
+#### Basic setup: 
 - 'cd' into app-backend/api
 -  Create a virtual environment and install the dependencies specified in the "app-backend/api/requirements.txt" file. 
 -  Run the following commands: 
@@ -31,6 +32,50 @@ URL to the backend API/Microservice the app uses: https://intelistyle-task-api.h
 python manage.py migrate # Do it only for the first time (to set up the Django Backend DBs) .
 python manage.py runserver # Start the server.
 ```
+- navigate to 'localhost:8000/api/'
+- In order to be able to do the write and delete operations in the api view, do the following:
+- Run the following command in terminal in 'app-backend/api' directory :
+```bash
+   python manage.py createsuperuser 
+   # and then go answer the questions the terminal prompts you with
+```
+- navigate to 'localhost:8000/admin/' and login with your newly created credentials 
+- navigate back to 'localhost:8000/api/' and notice how now you're able to do full CRUD of operations.   
+#### Loading the S3 file: 
+- remember to have "jsonfiles" python package installed (will install itself when pip installing from the requirements.txt file)
+- inside api/api there's a file called "load_db_data.py". This file handles converting the data to an appropriate format and structure for django to be later loaded into the backend's database (see this django docs page: https://docs.djangoproject.com/en/2.2/howto/initial-data/) 
+- Inside the file, remember to provide your own path to your big ".jl" file:
+```python
+   #REMEMBER to change this variable to yours '.jl' file's path.
+   jsonl_file_path = os.path.join(os.path.dirname(BASE_DIR), "garment_items.jl") # CHANGE IF REPRODUCING WITH OWN DATA FILE
+```
+- run the file.
+- Run two terminal commands from django-admin CLI (within the directory of your manage.py file, i.e. 'app-backend/api') : 
+```bash
+   python manage.py loaddata DB_LOAD-image_items.json
+   python manage.py loaddata DB_LOAD-garment_items.json
+```
+- run django server (_python manage.py runserver_) and see all the data in your api.   
+
+#### AWS S3 support: 
+At the bottom of this project's Django's settings.py file you can see: 
+```python
+AWS_ACCESS_KEY_ID = os.environ.get('INTELISTYLE_TASK_AWS_ACCESS_KEY_ID') # Remember to provide your own env variable !
+AWS_SECRET_ACCESS_KEY = os.environ.get('INTELISTYLE_TASK_AWS_SECRET_ACCESS_KEY')  # Remember to provide your own env variable !
+AWS_STORAGE_BUCKET_NAME = 'intelistyle-task'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+DEFAULT_FILE_STORAGE = 'api.storage_backends.PublicMediaStorage'
+```
+- If you wish to ignore setting up AWS3, remove/comment out that section of code
+- Otherwise, remember to provide your own env variables for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. 
+
+
 
 ## Front-end
 - cd into app-frontend
